@@ -1,0 +1,15 @@
+Install instructions:
+	make all
+
+	This makes a couple of .o executables. Run the server, then the client
+	The client is on a loop until you exit the program
+
+Uninstall instructions:
+	make clean
+	
+	This removes all executables and you're just left with the .cpp files
+
+
+Currently the server does nothing but processes the input from the client
+
+the client just loops asking for an input to send to the server
