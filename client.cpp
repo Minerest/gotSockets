@@ -8,12 +8,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+
 using namespace std;
 
 void writeToServer (int filedes);
 void init_sockaddr(struct sockaddr_in *name, const char *hostname, unsigned short int port);
 int main (void){
-
+	srand(0);
 /*	init_sockaddr(struct sockaddr_in *name,
 				  const char *hostname,
 				  unsigned short int port);*/
@@ -59,9 +60,13 @@ void writeToServer(int filedes){
 	int nbytes;
 	char str[256];
 	bool running = true;
+	int index = 0;
 	while (running){
-		cin>>str;
-		if(str[0] == '0') break;
+		cin>>str;	//I read that the ncurses library handles input without delay? I need to learn how I can send any other types of data. Maybe objects in json format?
+/*		for (int i = 0; i < 256; i++){ trash data
+			str[i] = rand()%26+47;
+		}*/
+		if(str[0] == '0') continue;
 		nbytes = write(filedes, str , strlen(str) + 1);
 
 		if (nbytes < 0){
