@@ -25,8 +25,8 @@ def main():
             toSend += " was recieved!!!"
             print(toSend)
             reply = "Thanks, your message was recieved!"
-            soSend2 = reply.encode()
-            conn.send(soSend2)
+            rep = reply.encode()
+            conn.send(rep)
         else:
             print("WRONG FLAGs")
             conn.close()
