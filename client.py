@@ -12,9 +12,10 @@ def main():
     except Exception as e:
         print(e)
 
-
-    HOST = ''    # The remote host
-    PORT = 50004              # The same port as used by the server
+    HOST, PORT = getConfig()
+    PORT = int(PORT)
+    # HOST = ''    # The remote host
+    # PORT = 50004              # The same port as used by the server
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         s.connect((HOST, PORT))
@@ -38,4 +39,17 @@ def main():
         else:
             s.close()
             return
+
+def getConfig():
+   #Gets the data within the ./config file.
+   #The return is a tuple containing the HOST and PORT settings.
+   with open("./config", 'r') as conf:
+       data = conf.readlines()
+   for i in range(len(data)):
+       data[i] = data[i].strip('\n')
+   print(data)
+   configs = {ky: val for ky, val in (data[x].split(':') for x in range(len(data)))}
+
+   return (configs["HOST"], configs["PORT"])
+
 main()
