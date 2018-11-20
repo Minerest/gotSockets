@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3.6
 import sys #for command line args
 import socket
 #import ctypes
@@ -38,7 +38,8 @@ class system:
         configs = {ky: val for ky, val in (data[x].split(':') for x in range(len(data)))}
         return (configs["HOST"], configs["PORT"])
 
-    def getCmd(self):
+    def getCmd(self, HOST, PORT):
+
         try:
             PORT = int(PORT)
         except:
@@ -49,6 +50,7 @@ class system:
         else:
             printHelp()
             sys.exit(1)
+
     def connect(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
@@ -68,13 +70,14 @@ def main():
     # start the socket connection
     Syst.connect()
     while True:
-        st = input("Enter str")
+
+        st = str(input("Enter str\n"))
         print(st)
         enc = st.encode()
         Syst.sock.sendall(enc)
         data = Syst.sock.recv(1024)
         if data:
-            data = data.decode()
+            data = str(data.decode())
             print(data)
         else:
             Syst.sock.close()

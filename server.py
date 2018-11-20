@@ -1,7 +1,13 @@
+#!/usr/bin/python3.6
 import socket
+import sys
 
 def main():
-    HOST, PORT = getConfig()
+    try:
+        HOST, PORT = getCmd()
+    except Exception as e:
+        print(e)
+        HOST, PORT = getConfig()
     # HOST = ''                 # Symbolic name meaning all available interfaces
     # PORT = 50004             # Arbitrary non-privileged port
     PORT = int(PORT)
@@ -67,4 +73,17 @@ def getConfig():
     configs = {ky:val for ky, val in (data[x].split(':') for x in range(len(data)))}
 
     return (configs["HOST"], configs["PORT"])
+
+
+def getCmd():
+    HOST = sys.argv[1]
+    PORT = sys.argv[2]
+    try:
+        PORT = int(PORT)
+    except:
+        print("Invalid port, pick one greater than 10,000")
+        sys.exit(1)
+    return (HOST, PORT)
+
+
 main()
