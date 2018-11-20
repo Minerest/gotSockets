@@ -1,4 +1,4 @@
-#!/usr/bin/python3.6
+#!/usr/bin/python3
 import sys #for command line args
 import socket
 #import ctypes
